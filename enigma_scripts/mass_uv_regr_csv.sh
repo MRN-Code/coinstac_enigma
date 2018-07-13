@@ -15,14 +15,14 @@
 #-----------------------------------------------
 
 #---Section 1. Script directories
-scriptDir="/Users/Harshvardhan/Documents/ENIGMADiseaseWorkingGroupStats/example_tutorial/scripts/" ## where you have downloaded the ENIGMA Regression R scripts!
-resDir="/Users/Harshvardhan/Documents/ENIGMADiseaseWorkingGroupStats/example_tutorial/results/"   ## directory to be created for your results!
-logDir="/Users/Harshvardhan/Documents/ENIGMADiseaseWorkingGroupStats/example_tutorial/logs/"        ## directory to be created to output the log files
+scriptDir=$1 ## where you have downloaded the ENIGMA Regression R scripts!
+resDir=$2   ## directory to be created for your results!
+logDir=$2        ## directory to be created to output the log files
 
 #---Section 2. Configuration variables-----
 ## Get the following from your working group leader ## 
 RUN_ID="ENIGMA_TUTORIAL"
-CONFIG_PATH="https://docs.google.com/spreadsheets/d/142eQItt4C_EJQff56-cpwlUPK7QmPICOgSHfnhGWx-w"
+CONFIG_PATH=$3
 #ROI_LIST=("AverageFA" "GCC" "BCC" "SCC" "FX" "CST_R" "CST_L" "ALIC_R" "ALIC_L" "PLIC_R" "PLIC_L" "RLIC_R" "RLIC_L" "ACR_R" "ACR_L" "SCR_R" "SCR_L" "PCR_R" "PCR_L" "PTR_R" "PTR_L" "SS_R" "SS_L" "EC_R" "EC_L" "CGC_R" "CGC_L" "CGH_R" "CGH_L" "FX_ST_R" "FX_ST_L" "SLF_R" "SLF_L" "SFO_R" "SFO_L" "IFO_R" "IFO_L" "UNC_R" "UNC_L" "IC_R" "IC_L" "ALIC" "PLIC" "RLIC" "IC" "CR_R" "CC" "CR_L" "ACR" "SCR" "PCR" "CR" "CST" "PTR" "SS" "EC" "CGC" "CGH" "SLF" "SFO" "IFO" "FXST" "UNC")
 ROI_LIST=("GCC" "BCC")
 ############

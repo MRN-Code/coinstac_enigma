@@ -4,7 +4,14 @@ from utils import listRecursive
 
 
 def remote_1(args):
-    pass
+    input_list = args["input"]
+
+    config_path = [input_list[site]["config_path"] for site in input_list]
+    output_dict = {"config_path": config_path}
+
+    computation_output = {"output": output_dict, "success": True}
+
+    return json.dumps(computation_output)
 
 
 if __name__ == '__main__':
