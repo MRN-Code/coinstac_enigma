@@ -1,7 +1,0 @@
-ID,Name,LM,MainFactor,FactorOfInterest,Filters_1,Filters_2,SiteRegressors,NewRegressors,ContValue,PatValue,Active,ContMin,PatMin,Comments,SaveLM
-PatVsCont_AgeSex,"Patients vs controls, covarying for Age and Sex. Cohen's D.",factor(Dx) + Age + factor(Sex),factor(Dx),,,,,,,,1,,,,1
-MetrVsAge_PCorr,Metrics correlated with Age. Partial correlations.,Age + AO + DURILL + Sex,Age,,,,,,,,1,,,,1
-AgeBeta,Beta value for Age. Factor of interest.,Age + AO +DURILL + Sex + factor(Dx),,Age,,,,,,,1,,,,1
-PatVsCont_newRegressors,"Introducing additional regressors. See NewRegressors column, and usage of new variables in linear model.",factor(Dx) + Age + factor(Sex) + AgeC2 + Age2C:factor(Sex) + AgeC:factor(Sex),factor(Dx),,,,all,__AgeC__=__Age__-mean(__Age__); __AgeC2__=__AgeC__*__AgeC__;__Age2__=__Age__*__Age__;__Age2C__=__Age__*__Age__-mean(__Age2__),,,1,,,,1
-AO_PCorr_filters,"Partial correlation Age at onset covarying for age, sex, age2, age2bysex. See how Filters are used.",AO + Age + Sex + AgeC2 + Age2CSex + AgeCSex,AO,,(__Dx__==1) & (!is.na(__AO__)),,all,__AgeC__=__Age__-mean(__Age__); __AgeC2__=__AgeC__*__AgeC__;__AgeCSex__=__AgeC__*__Sex__;__Age2__=__Age__*__Age__;__Age2C__=__Age__*__Age__-mean(__Age2__);__Age2CSex__=__Age2C__*__Sex__,,,1,,,,1
-DURILL_beta_filters,Beta value for DURILL. Factor of Interest.,DURILL + Age + factor(Sex) + AgeC2 + Age2C:factor(Sex) + AgeC:factor(Sex),,DURILL,(__Dx__==1) & (!is.na(__DURILL__)),,all,__AgeC__=__Age__-mean(__Age__); __AgeC2__=__AgeC__*__AgeC__;__Age2__=__Age__*__Age__;__Age2C__=__Age__*__Age__-mean(__Age2__),,,1,,,,1
