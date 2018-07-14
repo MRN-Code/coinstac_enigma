@@ -9,20 +9,20 @@
 # http://enigma.ini.usc.edu
 #-----------------------------------------------
 
-
-library(ppcor)
-library(matrixStats)
+options(warn=-1)
+suppressMessages(library(ppcor))
+suppressMessages(library(matrixStats))
 # uncomment when moments library is installed..
 library(moments)
 #--0.
-require(RCurl)
+#require(RCurl)
 
-read_web_csv<-function(url_address){
-  gdoc3=paste(url_address,'/export?format=csv&id=KEY',sep='')
-  myCsv <- getURL(gdoc3,.opts=list(ssl.verifypeer=FALSE))
-  csv_res<-read.csv(textConnection(myCsv),header = TRUE,stringsAsFactors = FALSE)
-  return (csv_res)
-}
+#read_web_csv<-function(url_address){
+ # gdoc3=paste(url_address,'/export?format=csv&id=KEY',sep='')
+ # myCsv <- getURL(gdoc3,.opts=list(ssl.verifypeer=FALSE))
+ # csv_res<-read.csv(textConnection(myCsv),header = TRUE,stringsAsFactors = FALSE)
+ # return (csv_res)
+#}
 
 read_web_csv1<-function(url_address){
   csv_res<-read.csv(url_address,header = TRUE,stringsAsFactors = FALSE)
@@ -65,12 +65,12 @@ config_csv<-read_web_csv1(Config_Path)
 
 config_currentRun<-config_csv[grep(ID, config_csv$ID, ignore.case=T),]
 if(nrow(config_currentRun)>1) {
-  cat (paste("Error: number of rows with ID ",ID," is more than 1. Row must be unique.",sep=''))
+  # cat (paste("Error: number of rows with ID ",ID," is more than 1. Row must be unique.",sep=''))
   stop()
 }
 
-RUN_ID
-config_currentRun
+#RUN_ID
+#config_currentRun
 
 AnalysisList_Path<-config_currentRun$AnalysisList_Path
 DemographicsList_Path<-config_currentRun$DemographicsList_Path
@@ -252,7 +252,7 @@ messages=file(LOG_FILE, open="wt")
 sink(messages, type="message")
 sink(messages, type="output")
 
-cat("4. READ CONFIGURATION .CSV FILES.\n")
+# cat("4. READ CONFIGURATION .CSV FILES.\n")
 
 dsSubjectsCov<-read.csv(Subjects_Path, header = TRUE)
 
@@ -263,17 +263,17 @@ if (Exclude_Path!=""){
   dsExcludeSubj=NA
 }
 #read linear models analysis list
-cat(AnalysisList_Path)
-cat("\n")
+#cat(AnalysisList_Path)
+#cat("\n")
 cat(DemographicsList_Path)
 dsAnalysisConf<-read_web_csv1(AnalysisList_Path)
 #read demographic configuration file
 dsDemographicsConf<-read_web_csv1(DemographicsList_Path)
 ##--/4. END OF READING CONFIGURATION .CSV FILES.
-cat("4. END OF READING CONFIGURATION .CSV FILES.\n")
+#cat("4. END OF READING CONFIGURATION .CSV FILES.\n")
 
 #--5. PROCESS DEMOGRAPHICS FOR COVARIATES ('COV" section of config file)
-cat("5. PROCESS DEMOGRAPHICS FOR COVARIATES ('COV' section of config file)\n")
+#cat("5. PROCESS DEMOGRAPHICS FOR COVARIATES ('COV' section of config file)\n")
 
 #get covariate metrics for demographics.
 dsDemogCOV=dsDemographicsConf[which(dsDemographicsConf$Type=="COV"),]    
@@ -292,7 +292,7 @@ for (iCOV in 1:nrow(dsDemogCOV)){
   stVars=strsplit(dsDemogCOV$StatsNames[iCOV],';')[[1]]
   stVarToSave<-c(length(stVars))
   if (length(stFunc)!=length(stVars)){
-    cat ("For variable: ", dsDemogCOV$varname[iCOV], "length of Statistics functions and Statistics variable names is not equal! Proceeding with the next variable\n")
+ #   cat ("For variable: ", dsDemogCOV$varname[iCOV], "length of Statistics functions and Statistics variable names is not equal! Proceeding with the next variable\n")
     next
   }
   for(iCur in 1:length(stVars)){
@@ -304,7 +304,7 @@ for (iCOV in 1:nrow(dsDemogCOV)){
   strForSave=paste(stVarToSave,collapse=',')
   if(dsDemogCOV$SepFile[iCOV]==1){
 #    strForSave=paste(stVarToSave,collapse=',')
-	cat("Using sepfile=1 for COV section is deprecated\n")    
+#	cat("Using sepfile=1 for COV section is deprecated\n")    
 #	cat(paste('save(',strForSave,',CURRENT_ROI,','file=\'',dsDemogCOV$Type[iCOV],'_',dsDemogCOV$varname[iCOV],'.RData\')',sep=''))
 #    eval(parse(text=paste('save(',strForSave,',CURRENT_ROI,','file=\'',dsDemogCOV$Type[iCOV],'_',dsDemogCOV$varname[iCOV],'.RData\')',sep='')))
   }
@@ -315,11 +315,11 @@ for (iCOV in 1:nrow(dsDemogCOV)){
 strAllCovToSave=paste(strAllCov,collapse=',')
 eval(parse(text=paste('save(',strAllCovToSave,',file=\'',Results_CSV_Path,'COVARIATES.RData\')',sep='')))
 #--/5.END OF PROCESSING DEMOGRAPHICS FOR COVARIATES
-cat("5.END OF PROCESSING DEMOGRAPHICS FOR COVARIATES\n")
+#cat("5.END OF PROCESSING DEMOGRAPHICS FOR COVARIATES\n")
 
 #--6. PROCESSING DEMOGRAPHICS - NUMBER OF ELEMENTS FOR COVARIATES (Section 'NUM' in config file)
 
-cat("6. PROCESSING DEMOGRAPHICS - NUMBER OF ELEMENTS FOR COVARIATES (Section 'NUM' in config file)\n")
+#cat("6. PROCESSING DEMOGRAPHICS - NUMBER OF ELEMENTS FOR COVARIATES (Section 'NUM' in config file)\n")
 dsDemogNUM=dsDemographicsConf[which(dsDemographicsConf$Type=="NUM"),]    
 strAllCov<-list()
 for (iNUM in 1:nrow(dsDemogNUM)){
@@ -335,7 +335,7 @@ for (iNUM in 1:nrow(dsDemogNUM)){
   stVars=strsplit(dsDemogNUM$StatsNames[iNUM],';')[[1]]
   stVarToSave<-c(length(stVars))
   if (length(stFunc)!=length(stVars)){
-    cat ("For variable: ", dsDemogNUM$varname[iNUM], "length of Statistics functions and Statistics variable names is not equal! Proceeding with the next variable\n")
+ #   cat ("For variable: ", dsDemogNUM$varname[iNUM], "length of Statistics functions and Statistics variable names is not equal! Proceeding with the next variable\n")
     next
   }
   for(iCur in 1:length(stVars)){
@@ -345,7 +345,7 @@ for (iNUM in 1:nrow(dsDemogNUM)){
   }
   strForSave=paste(stVarToSave,collapse=',')
   if(dsDemogNUM$SepFile[iNUM]==1){
-     cat("Using sepfile=1 for NUM section is deprecated\n")    
+  #   cat("Using sepfile=1 for NUM section is deprecated\n")    
 
 #    strForSave=paste(stVarToSave,collapse=',')
 #    eval(parse(text=paste('save(',strForSave,',cur_roi,','file=\'',dsDemogNUM$Type[iNUM],'_',dsDemogNUM$varname[iNUM],'_',toString(cur_roi),'.RData\')',sep='')))
@@ -356,12 +356,12 @@ for (iNUM in 1:nrow(dsDemogNUM)){
 strAllCovToSave=paste(strAllCov,collapse=',')
 eval(parse(text=paste('save(',strAllCovToSave,',file=\'',Results_CSV_Path,'NUM.RData\')',sep='')))
 #--6.END OF PROCESSING DEMOGRAPHICS - NUMBER OF ELEMENTS FOR COVARIATES 
-cat("6.END OF PROCESSING DEMOGRAPHICS - NUMBER OF ELEMENTS FOR COVARIATES\n")
+#cat("6.END OF PROCESSING DEMOGRAPHICS - NUMBER OF ELEMENTS FOR COVARIATES\n")
 
 #--7. MAIN CYCLE STARTS. PROCESSING  METRICS
-cat("7. MAIN CYCLE STARTS. PROCESSING METRICS\n")
+#cat("7. MAIN CYCLE STARTS. PROCESSING METRICS\n")
 for (cur_sm in METRICS){    #for each metric
-    cat(paste("Reading Metrics: ", cur_sm,'\n',sep=''))
+    #cat(paste("Reading Metrics: ", cur_sm,'\n',sep=''))
     
     if(READ_FROM_CSV) {
       #!!! mind the settings for reading csv (sep='.',dec=',')      
@@ -369,9 +369,9 @@ for (cur_sm in METRICS){    #for each metric
       csvMetrics<-read.csv(csvMetricsFile)
       cortcolind<-match(CSV_ROI_NAMES[[cur_sm]],names(csvMetrics)) #control if .csv headers match our settings    
       if(length(which(is.na(cortcolind))) > 0){
-        cat (paste(toString(names(csvMetrics)), "\n",sep=''))
-        cat(paste (toString(cortcolind),"\n",sep=''))
-	cat("CSV ROI Names:\n")
+        #cat (paste(toString(names(csvMetrics)), "\n",sep=''))
+        #cat(paste (toString(cortcolind),"\n",sep=''))
+	#cat("CSV ROI Names:\n")
 	print(CSV_ROI_NAMES)
         stop('At least one of the required columns in your ', csvMetricsFile, ' file is missing. Make sure that the column names are spelled exactly as listed in the protocol\n')
       
@@ -394,7 +394,7 @@ for (cur_sm in METRICS){    #for each metric
       if(Exclude_Path!="") {
 #        excludedSubjectsRoi<-eval(parse(text=paste("dsExcludeSubj$R",toString(cur_roi),sep='')))
 	 excludedSubjectsRoi<-eval(parse(text=paste("as.vector(dsExcludeSubj$SubjID[as.vector(dsExcludeSubj$ROI",toString(cur_roi),"<",toString(QA_LEVEL),")])",sep='')))
-	cat(paste("QA Level=",QA_LEVEL,sep=''))
+	#cat(paste("QA Level=",QA_LEVEL,sep=''))
       }
       else {
         excludedSubjectsRoi=c()
@@ -411,7 +411,7 @@ for (cur_sm in METRICS){    #for each metric
       }
 #      print (paste("Included subjects for ROI", toString(cur_roi),": ",toString(dsSubjectsCovToRead$SubjID),sep=''))
       #-- 7.1.1 READ DATA FOR ROI
-      cat(paste("7.1.1 READ DATA FOR ROI: ",toString(cur_roi),'\n',sep=''))
+      #cat(paste("7.1.1 READ DATA FOR ROI: ",toString(cur_roi),'\n',sep=''))
       matr_created=FALSE
       if (cur_roi=="SubjID") next
       if(READ_FROM_CSV==TRUE){        
@@ -430,7 +430,7 @@ for (cur_sm in METRICS){    #for each metric
           close(f_toRead)
           
           if (length(curSubjectData)==0) {
-            cat(paste("NULL bytes in data for ROI ",cur_roi," : Subject ", cur_subject,'\n',sep=''))
+            #cat(paste("NULL bytes in data for ROI ",cur_roi," : Subject ", cur_subject,'\n',sep=''))
             dsSubjectsCovToRead<-subset(dsSubjectsCovToRead,!SubjID %in% cur_subject)
             next
           }          
@@ -439,7 +439,7 @@ for (cur_sm in METRICS){    #for each metric
           if(!matr_created){
             matr<-curSubjectData
             matr_created=TRUE
-            cat("matr_created.\n")
+            #cat("matr_created.\n")
           } 
           else{
             matr<-rbind(matr,curSubjectData,deparse.level = 0)
@@ -455,16 +455,16 @@ for (cur_sm in METRICS){    #for each metric
       }
       dsMetrics=merge(dsSubjectsCovToRead,dsMetrics,by='SubjID')
       if(nrow(dsMetrics)!=nrow(dsSubjectsCovToRead)){
-        cat(paste("Metrics Subjects and Covariates Subjects DO NOT MATCH for ROI: ", cur_roi,'\n', sep=''))
+        #cat(paste("Metrics Subjects and Covariates Subjects DO NOT MATCH for ROI: ", cur_roi,'\n', sep=''))
         dsMetrics=NA
         dsMetricsList[[toString(cur_roi)]]=dsMetrics
         next
       }
       dsMetricsList[[toString(cur_roi)]]=dsMetrics
       #--/7.1.1 END OF READING DATA FOR ROI
-      cat(paste("/7.1.1 END OF READING DATA FOR ROI: ",toString(cur_roi),'\n',sep=''))
+      #cat(paste("/7.1.1 END OF READING DATA FOR ROI: ",toString(cur_roi),'\n',sep=''))
       #--7.1.2 PROCESS DEMOGRAPHICS FOR ROI
-      cat(paste("7.1.2 PROCESS DEMOGRAPHICS FOR ROI: ",toString(cur_roi),'\n',sep=''))
+      #cat(paste("7.1.2 PROCESS DEMOGRAPHICS FOR ROI: ",toString(cur_roi),'\n',sep=''))
       strAllSM<-""
       for (iSM in 1:nrow(dsDemogSM)){
 	if(dsDemogSM$Active[iSM]!=1){
@@ -482,7 +482,7 @@ for (cur_sm in METRICS){    #for each metric
         stVars=strsplit(dsDemogSM$StatsNames[iSM],';')[[1]]
         stVarToSave<-c(length(stVars))
         if (length(stFunc)!=length(stVars)){
-          cat ("For variable: ", dsDemogSM$varname[iSM], "length of Statistics functions and Statistics variable names is not equal! Proceeding with the next variable\n")
+          #cat ("For variable: ", dsDemogSM$varname[iSM], "length of Statistics functions and Statistics variable names is not equal! Proceeding with the next variable\n")
           next
         }
         for(iCur in 1:length(stVars)){
@@ -492,7 +492,7 @@ for (cur_sm in METRICS){    #for each metric
           }
           else if (stFunc[iCur]=="kurtosis"){
             if(READ_FROM_CSV!=TRUE){
-              cat("KURTOSIS is only applicable to csv data")
+              #cat("KURTOSIS is only applicable to csv data")
               next              
             }
             # Comment out next 3 lines when 'moments' library is installed.
@@ -506,7 +506,7 @@ for (cur_sm in METRICS){    #for each metric
           }
           else if (stFunc[iCur]=="skewness"){
             if(READ_FROM_CSV!=TRUE){
-              cat("SKEWNESS is only applicable to csv data")
+              #cat("SKEWNESS is only applicable to csv data")
               next              
             }
             # Comment out next 3 lines when 'moments' library is installed.
@@ -526,7 +526,7 @@ for (cur_sm in METRICS){    #for each metric
         strForSave= if (length(stVarToSave)==0) "" else paste(stVarToSave,collapse=',')
 
         if(dsDemogSM$SepFile[iSM]==1){
-	   cat("saving metrics to a separate file is deprecated in current version.\n")
+	   #cat("saving metrics to a separate file is deprecated in current version.\n")
 #          strForSave=paste(stVarToSave,collapse=',')
         }
 	      strAllSM<-if (strForSave!="") paste(strForSave,strAllSM,sep=',') else strAllSM
@@ -534,18 +534,18 @@ for (cur_sm in METRICS){    #for each metric
       eval(parse(text=paste('save(',strAllSM,'cur_roi,cur_sm,','file=\'',Results_CSV_Path,dsDemogSM$Type[iSM],'_',cur_sm,'_',toString(cur_roi),'.RData\')',sep='')))
 	
       #--/7.1.2 END OF PROCESSING DEMOGRAPHICS FOR ROI
-      cat(paste("/7.1.2 END OF PROCESSING DEMOGRAPHICS FOR ROI: ",toString(cur_roi),'\n',sep=''))
+      #cat(paste("/7.1.2 END OF PROCESSING DEMOGRAPHICS FOR ROI: ",toString(cur_roi),'\n',sep=''))
   }
 
 
     #-- 7.2 PROCESSING LINEAR MODELS --
-    cat("7.2 PROCESSING LINEAR MODELS\n")
+    #cat("7.2 PROCESSING LINEAR MODELS\n")
     for (cur_rowAnalysis in 1:nrow(dsAnalysisConf)){
       resMatr_created=FALSE
       
       #Read Analysis parameters
       if (dsAnalysisConf$Active[cur_rowAnalysis]==0) {next}
-      cat(paste("Processing model: ",dsAnalysisConf$ID[cur_rowAnalysis],":",dsAnalysisConf$Name[cur_rowAnalysis],'\n',sep=''))
+      #cat(paste("Processing model: ",dsAnalysisConf$ID[cur_rowAnalysis],":",dsAnalysisConf$Name[cur_rowAnalysis],'\n',sep=''))
       strCovariates<-dsAnalysisConf$NewRegressors[cur_rowAnalysis]
       strFilter1<-dsAnalysisConf$Filters_1[cur_rowAnalysis]
       strFilter2<-dsAnalysisConf$Filters_2[cur_rowAnalysis]
@@ -591,7 +591,7 @@ for (cur_sm in METRICS){    #for each metric
         dsMetrics=dsMetricsList[[toString(cur_roi)]]
         
         if(is.na(dsMetrics)) {
-          cat(paste("dsMetrics for ROI: ", cur_roi, " has 0 rows. Skipping it.\n",sep=''))
+          #cat(paste("dsMetrics for ROI: ", cur_roi, " has 0 rows. Skipping it.\n",sep=''))
           next
         }
         #Filter out excluded Subjects
@@ -646,7 +646,7 @@ for (cur_sm in METRICS){    #for each metric
         attach(dsMetricsFiltered_CurrentLM)
           
         #loop over vertices and create linear model for each vertex
-        cat("Computing Linear Model for the current ROI...")
+        #cat("Computing Linear Model for the current ROI...")
   
         pbLinModels <- txtProgressBar(1,ncol(dsMetricsFiltered_CurrentLM),title='Reading subjects.')
         iPb=1 #counter for progress bar
@@ -787,20 +787,20 @@ for (cur_sm in METRICS){    #for each metric
         }
         error_occured<<-0
         }, warning = function(w) {
-          cat(paste("WARNING: "), toString(w),sep='')
+          #cat(paste("WARNING: "), toString(w),sep='')
         }, error = function(e) {
-          cat(paste("ERROR: ",toString(e),sep=''))
+          #cat(paste("ERROR: ",toString(e),sep=''))
 	  error_occured<<-1
 
         }, finally = {
           
         })
         
-        cat ("...Done computing Linear Model for the current ROI\n")
+        #cat ("...Done computing Linear Model for the current ROI\n")
         detach(dsMetricsFiltered_CurrentLM)
       
     }
-    cat(paste("error_occ:",as.character(error_occured),sep=''))
+    #cat(paste("error_occ:",as.character(error_occured),sep=''))
     if(error_occured==0) {   
        #-- /7.2.1 END OF Applying LM to each ROI
 	    write.csv(resMatr,file=paste(Results_CSV_Path,cur_sm,'_',dsAnalysisConf$ID[cur_rowAnalysis],"_",SitePostfix,".csv",sep=''),row.names=FALSE)
@@ -808,7 +808,7 @@ for (cur_sm in METRICS){    #for each metric
 	    	save(lmList,file=paste(Results_CSV_Path,cur_sm,'_LM_',dsAnalysisConf$ID[cur_rowAnalysis],"_",SitePostfix,'.Rdata',sep=''))
 	    }
 	}
-    cat(paste("End of processing model: ",dsAnalysisConf$ID[cur_rowAnalysis],":",dsAnalysisConf$Name[cur_rowAnalysis],'\n',sep=''))
+    #cat(paste("End of processing model: ",dsAnalysisConf$ID[cur_rowAnalysis],":",dsAnalysisConf$Name[cur_rowAnalysis],'\n',sep=''))
     
     close(pbLinModels)
   }

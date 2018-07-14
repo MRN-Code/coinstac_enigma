@@ -15,22 +15,22 @@
 #-----------------------------------------------
 
 #---Section 1. Script directories
-scriptDir="/computation/enigma_scripts/" ## where you have downloaded the ENIGMA Regression R scripts!
-resDir="/computation/test/output/local0/simulatorRun/"   ## directory to be created for your results!
-logDir="/computation/test/output/local0/simulatorRun/"        ## directory to be created to output the log files
+scriptDir=$1 ## where you have downloaded the ENIGMA Regression R scripts!
+resDir=$2   ## directory to be created for your results!
+logDir=$3        ## directory to be created to output the log files
 
 #---Section 2. Configuration variables-----
 ## Get the following from your working group leader ## 
 RUN_ID="ENIGMA_TEST"
-CONFIG_PATH="test_config.csv"
+CONFIG_PATH=$6
 #ROI_LIST=("AverageFA" "GCC" "BCC" "SCC" "FX" "CST_R" "CST_L" "ALIC_R" "ALIC_L" "PLIC_R" "PLIC_L" "RLIC_R" "RLIC_L" "ACR_R" "ACR_L" "SCR_R" "SCR_L" "PCR_R" "PCR_L" "PTR_R" "PTR_L" "SS_R" "SS_L" "EC_R" "EC_L" "CGC_R" "CGC_L" "CGH_R" "CGH_L" "FX_ST_R" "FX_ST_L" "SLF_R" "SLF_L" "SFO_R" "SFO_L" "IFO_R" "IFO_L" "UNC_R" "UNC_L" "IC_R" "IC_L" "ALIC" "PLIC" "RLIC" "IC" "CR_R" "CC" "CR_L" "ACR" "SCR" "PCR" "CR" "CST" "PTR" "SS" "EC" "CGC" "CGH" "SLF" "SFO" "IFO" "FXST" "UNC")
 ROI_LIST=("GCC" "BCC")
 ############
 
 ## These are all you -- enter your site ID and paths to your files
 SITE="MDR"
-DATADIR="/computation/test/local0/simulatorRun/"
-SUBJECTS_COV="/computation/test/local0/simulatorRun/covariates.csv"
+DATADIR=$4
+SUBJECTS_COV=$5
 
 ## how are you running this?? Command-line or on Q-SUB
 #Nnodes=${#ROI_LIST[@]} 	# ***uncomment this if using a SGE or PBS cluster *** Set number of nodes to the length of ROI list
@@ -130,7 +130,7 @@ do
 			${METR_PREFIX_STR} \
 			<  ${scriptDir}/mass_uv_regr.R
 		"
-	echo $cmd
-	echo $cmd >> $OUT
+	#echo $cmd
+	#echo $cmd >> $OUT
 	eval $cmd
 done

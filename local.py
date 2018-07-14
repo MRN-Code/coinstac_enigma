@@ -8,14 +8,14 @@ from utils import listRecursive
 def local_1(args):
     input_list = args["input"]
 
-    scriptDir = "/computation/scripts/"
+    scriptDir = "/computation/enigma_scripts"
     resDir = args["state"]["outputDirectory"]
     logDir = args["state"]["outputDirectory"]
 
     data_dir = args["state"]["baseDirectory"]
     subjects_cov = os.path.join(args["state"]["baseDirectory"],
                                 'covariates.csv')
-    config_path = input_list["CONFIG_PATH"]
+    config_path = os.path.join(scriptDir, input_list["CONFIG_PATH"])
 
     pass_arg = [
         "bash",
@@ -23,7 +23,7 @@ def local_1(args):
         logDir, data_dir, subjects_cov, config_path
     ]
 
-    raise Exception(subprocess.check_output(pass_arg))
+    subprocess.check_output(pass_arg)
 
     output_dict = {"config_path": config_path, "computation_phase": "local_1"}
 
