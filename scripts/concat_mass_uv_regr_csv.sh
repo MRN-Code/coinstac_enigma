@@ -15,14 +15,15 @@
 #-----------------------------------------------
 
 #---Section 1. Script directories
-scriptDir="/Users/Harshvardhan/Documents/ENIGMADiseaseWorkingGroupStats/example_tutorial//scripts/" ## where you have downloaded the ENIGMA Regression R scripts!
-resDir="/Users/Harshvardhan/Documents/ENIGMADiseaseWorkingGroupStats/example_tutorial/results/"   ## directory to be created for your results!
-logDir="/Users/Harshvardhan/Documents/ENIGMADiseaseWorkingGroupStats/example_tutorial/logs/"        ## directory to be created to output the log files
+scriptDir="/Users/Harshvardhan/Documents/coinstac_enigma/scripts" ## where you have downloaded the ENIGMA Regression R scripts!
+resDir="/Users/Harshvardhan/Documents/coinstac_enigma/results/"   ## directory to be created for your results!
+logDir="/Users/Harshvardhan/Documents/coinstac_enigma/logs/"        ## directory to be created to output the log files
+DATA_DIR="/Users/Harshvardhan/Documents/coinstac_enigma/data"        ## directory to be created to output the log files
 
 
 #---Section 2. Configuration variables-----
-RUN_ID="ENIGMA_TUTORIAL"
-CONFIG_PATH="https://docs.google.com/spreadsheets/d/142eQItt4C_EJQff56-cpwlUPK7QmPICOgSHfnhGWx-w"
+RUN_ID="ENIGMA_TEST"
+CONFIG_PATH="/Users/Harshvardhan/Documents/coinstac_enigma/scripts/test_config.csv"
 SITE="MDR"
 ROI_LIST_TXT="$scriptDir/roi_list.txt"
 
@@ -51,8 +52,8 @@ then
 fi
 
 
-OUT=$logDir/log_concat.txt
-touch $OUT
+#OUT=$logDir/log_concat.txt
+#touch $OUT
 cmd="${Rbin} --no-save --slave --args\
 		${RUN_ID}\
 		${SITE} \
@@ -60,7 +61,8 @@ cmd="${Rbin} --no-save --slave --args\
 		${resDir} \
 		${ROI_LIST_TXT} \
 		${CONFIG_PATH} \
+		${DATA_DIR}
 		<  ${scriptDir}/concat_mass_uv_regr.R"
-echo $cmd
-echo $cmd >> $OUT
+#echo $cmd
+#echo $cmd >> $OUT
 eval $cmd

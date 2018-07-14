@@ -93,7 +93,7 @@ if [ ${SGE_TASK_ID} == 1 ]
 then
 #	touch $scriptDir/roi_list.txt	
 #	rm $scriptDir/roi_list.txt
-#	touch $scriptDir/roi_list.txt
+	touch $scriptDir/roi_list.txt
 	roi_text=$(printf "\",\"%s" ${ROI_LIST[@]})
 	roi_text=${roi_text:2}"\""
 
