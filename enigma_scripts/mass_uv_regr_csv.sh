@@ -91,13 +91,13 @@ fi
 
 if [ ${SGE_TASK_ID} == 1 ]
 then
-	touch $scriptDir/roi_list.txt	
-	rm $scriptDir/roi_list.txt
-	touch $scriptDir/roi_list.txt
+#	touch $scriptDir/roi_list.txt	
+#	rm $scriptDir/roi_list.txt
+#	touch $scriptDir/roi_list.txt
 	roi_text=$(printf "\",\"%s" ${ROI_LIST[@]})
 	roi_text=${roi_text:2}"\""
 
-	echo $roi_text >> $scriptDir/roi_list.txt
+#	echo $roi_text >> $scriptDir/roi_list.txt
 fi
 NchunksPerTask=$((Nroi/Nnodes))
 start_pt=$(($((${SGE_TASK_ID}-1))*${NchunksPerTask}+1))
@@ -111,8 +111,8 @@ fi
 
 #---Section 6. DO NOT EDIT. Running the R script
 
-OUT=$scriptDir/log.txt
-touch $OUT
+#OUT=$scriptDir/log.txt
+#touch $OUT
 for ((i=${start_pt}; i<=${end_pt};i++));
 do
 	cur_roi=${ROI_LIST[$i-1]}  

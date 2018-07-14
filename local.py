@@ -23,7 +23,7 @@ def local_1(args):
         logDir, data_dir, subjects_cov, config_path
     ]
 
-    subprocess.check_output(pass_arg)
+    subprocess.call(pass_arg)
 
     output_dict = {"config_path": config_path, "computation_phase": "local_1"}
 
