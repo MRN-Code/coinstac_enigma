@@ -1,0 +1,19 @@
+Type,varname,Filter,Stats,StatsNames,SepFile,Active,Covariate,Postfix
+METRICS,all,,colMeans;colSds;colMins;colMaxs;lengthNNA;,mu.raw;sd.raw;min.raw;max.raw;n.raw;,0,1,,
+METRICS,patients,__Dx__==1,colMeans;colSds;colMins;colMaxs;lengthNNA,mu.raw;sd.raw;min.raw;max.raw;n.raw,0,1,,
+METRICS,controls,__Dx__==0,colMeans;colSds;colMins;colMaxs;lengthNNA,mu.raw;sd.raw;min.raw;max.raw;n.raw,0,1,,
+METRICS,all,,skewness;kurtosis,skew.raw;kurt.raw,0,1,,
+COV,age,__Dx__==0,mean;sd;range,mu;sd;range,1,1,Age,controls
+COV,age,__Dx__==1,mean;sd;range,mu;sd;range,0,1,Age,patients
+COV,DURILL,__Dx__==1,mean;sd;range,mu;sd;range,0,1,DURILL,all
+COV,DURILL,(__Dx__==1)&(__Sex__==1),mean;sd;range,mu;sd;range,0,1,DURILL,female
+COV,DURILL,(__Dx__==1)&(__Sex__==0),mean;sd;range,mu;sd;range,0,1,DURILL,male
+COV,AO,__Dx__==1,mean;sd;range,mu;sd;range,0,1,AO,all
+COV,AO,(__Dx__==1)&(__Sex__==1),mean;sd;range,mu;sd;range,0,1,AO,female
+COV,AO,(__Dx__==1)&(__Sex__==0),mean;sd;range,mu;sd;range,0,1,AO,male
+NUM,n,__Sex__==2,length,fem,0,1,,
+NUM,n,__Sex__==1,length,mal,0,1,,
+NUM,n,(__Sex__==2) & (__Dx__==0),length,fem.dx0,0,1,,
+NUM,n,(__Sex__==1) & (__Dx__==0),length,mal.dx0,0,1,,
+NUM,n,(__Sex__==2) & (__Dx__==1),length,fem.dx1,0,1,,
+NUM,n,(__Sex__==1) & (__Dx__==1),length,mal.dx1,0,1,,

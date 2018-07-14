@@ -1,0 +1,11 @@
+ID,AnalysisList_Path,DemographicsList_Path,Type,Trait
+SEANMDD,https://docs.google.com/spreadsheets/d/1GAyxxRYx5X-08-dsUIV3US9wyvQlnZ69BOzBWjlDBjk,https://docs.google.com/spreadsheets/d/1C1hvhbrJhRm5A8qRf4pD39WWNTOhxpzqnDJGOu2LCGY,raw,LogJacs; thick
+SZDTI,https://docs.google.com/spreadsheets/d/1CjIymVRFn0QFS3cKcImI7KPBulGI-ABlpmK3KyPZJQE,https://docs.google.com/spreadsheets/d/1PLOPfgMVv7d68RjKKh800_O06uknHNwcGDQpmgr36jk,csv,FA; MD; AD; RD
+SchizoDTI_NOSH,https://docs.google.com/spreadsheets/d/1CjIymVRFn0QFS3cKcImI7KPBulGI-ABlpmK3KyPZJQE,https://docs.google.com/spreadsheets/d/1CkMAFHgBIfB7PxX38EoWWeUL3dbetWsGMlqkSzivsY0,csv,FA; MD; AD; RD
+CORTICAL1_EPI,https://docs.google.com/spreadsheets/d/1oHpBpIrOwmA3kVHlgf8EkzXLBMs0rgUq5KGll--2Auw,https://docs.google.com/spreadsheets/d/1sl7mOCqqe-jUwYcIN4gseEtdBftvlpUj6qsH46IE7QQ,csv,CortThick
+SUBCORT_EPI,https://docs.google.com/spreadsheets/d/1oHpBpIrOwmA3kVHlgf8EkzXLBMs0rgUq5KGll--2Auw,https://docs.google.com/spreadsheets/d/1sl7mOCqqe-jUwYcIN4gseEtdBftvlpUj6qsH46IE7QQ,csv,SubVol
+CORTICAL2_EPI,https://docs.google.com/spreadsheets/d/1oHpBpIrOwmA3kVHlgf8EkzXLBMs0rgUq5KGll--2Auw,https://docs.google.com/spreadsheets/d/1sl7mOCqqe-jUwYcIN4gseEtdBftvlpUj6qsH46IE7QQ,csv,CortSurf
+ISAEV,https://docs.google.com/spreadsheets/d/11wAD8J8JeBoyuE9zPHAxUj4STXJ14dNOq2GZuesdwmY,https://docs.google.com/spreadsheets/d/1XNwf8Up_pMpOvjWALqqbtXLPfHs4KRDuW8koiMglNg8,csv,FA; MD; AD; RD
+ENIGMA_TUTORIAL,https://docs.google.com/spreadsheets/d/116R3FrZsfj842_DQkhbukXGWm9p1hdpddi3s3qvPucE,https://docs.google.com/spreadsheets/d/10YFVkYhKgDBsAnvkmCx7e_Iff2dmLJ0wyrsAbt82Cak,csv,FA; MD
+PTSD,https://docs.google.com/spreadsheets/d/116R3FrZsfj842_DQkhbukXGWm9p1hdpddi3s3qvPucE,https://docs.google.com/spreadsheets/d/10YFVkYhKgDBsAnvkmCx7e_Iff2dmLJ0wyrsAbt82Cak,csv,LVetxThick
+ENIGMA_TEST,LinearModelsAnalysis.csv,DemographicsList.csv,csv,FA; MD

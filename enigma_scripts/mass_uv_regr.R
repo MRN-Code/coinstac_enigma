@@ -24,6 +24,11 @@ read_web_csv<-function(url_address){
   return (csv_res)
 }
 
+read_web_csv1<-function(url_address){
+  csv_res<-read.csv(url_address,header = TRUE,stringsAsFactors = FALSE)
+  return (csv_res)
+}
+
 
 #--0.
 #--1. READING THE COMMAND LINE---
@@ -56,7 +61,7 @@ QA_LEVEL=1000
 if ( (length(cmdargs)>8) & (cmdargs[8]!="-exclude_path") & (cmdargs[8]!="-shape_prefix")){
 	QA_LEVEL<<-as.numeric(cmdargs[9])
 }
-config_csv<-read_web_csv(Config_Path)
+config_csv<-read_web_csv1(Config_Path)
 
 config_currentRun<-config_csv[grep(ID, config_csv$ID, ignore.case=T),]
 if(nrow(config_currentRun)>1) {
@@ -70,7 +75,7 @@ config_currentRun
 AnalysisList_Path<-config_currentRun$AnalysisList_Path
 DemographicsList_Path<-config_currentRun$DemographicsList_Path
 
-cat(paste("Analysis list path: ",AnalysisList_Path,sep=''))
+#cat(paste("Analysis list path: ",AnalysisList_Path,sep=''))
 TYPE<-config_currentRun$Type
 TRAIT_LIST<-config_currentRun$Trait
 TRAIT_LIST<-gsub("[[:space:]]", "", TRAIT_LIST)
@@ -261,9 +266,9 @@ if (Exclude_Path!=""){
 cat(AnalysisList_Path)
 cat("\n")
 cat(DemographicsList_Path)
-dsAnalysisConf<-read_web_csv(AnalysisList_Path)
+dsAnalysisConf<-read_web_csv1(AnalysisList_Path)
 #read demographic configuration file
-dsDemographicsConf<-read_web_csv(DemographicsList_Path)
+dsDemographicsConf<-read_web_csv1(DemographicsList_Path)
 ##--/4. END OF READING CONFIGURATION .CSV FILES.
 cat("4. END OF READING CONFIGURATION .CSV FILES.\n")
 
