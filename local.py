@@ -10,20 +10,29 @@ def local_1(args):
 
     scriptDir = "/computation/enigma_scripts"
     resDir = args["state"]["outputDirectory"]
-    logDir = args["state"]["outputDirectory"]
+    logDir = os.path.join(args["state"]["outputDirectory"], 'logs')
 
     data_dir = args["state"]["baseDirectory"]
     subjects_cov = os.path.join(args["state"]["baseDirectory"],
                                 'covariates.csv')
     config_path = os.path.join(scriptDir, input_list["CONFIG_PATH"])
 
-    pass_arg = [
+    regr_args = [
         "bash",
         os.path.join(scriptDir, "mass_uv_regr_csv.sh"), scriptDir, resDir,
-        logDir, data_dir, subjects_cov, config_path
+        logDir, data_dir, config_path, subjects_cov
+    ]
+    subprocess.call(regr_args)    
+
+    concat_args = [
+        "bash", 
+        os.path.join(scriptDir, "concat_mass_uv_regr_csv.sh"), scriptDir, resDir,
+        logDir, data_dir, config_path
     ]
 
-    subprocess.call(pass_arg)
+    subprocess.call(concat_args)
+    
+    # code to read ALL files and 
 
     output_dict = {"config_path": config_path, "computation_phase": "local_1"}
 
