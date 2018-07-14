@@ -14,7 +14,7 @@ WORKDIR /computation
 # https://github.com/rocker-org/rocker/blob/b9f9289ef27f07dc2f2b64d56d12646770b9b233/r-base/Dockerfile
 RUN apt-get update \ 
 	&& apt-get install -y --no-install-recommends \
-		ed \
+	#	ed \
 	#	less \
 	#	locales \
 	#	vim-tiny \
@@ -37,10 +37,7 @@ RUN apt-get update \
     	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
     	&& rm -rf /var/lib/apt/lists/*
 
-RUN Rscript -e "install.packages('ppcor')"
-RUN Rscript -e "install.packages('moments')"
-RUN Rscript -e "install.packages('RCurl')"
-RUN Rscript -e "install.packages('matrixStats')"
+RUN Rscript -e "install.packages(c('ppcor', 'moments', 'matrixStats'))"
 
 # Copy the current directory contents into the container
 COPY . /computation
