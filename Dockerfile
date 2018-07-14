@@ -37,10 +37,7 @@ RUN apt-get update \
     	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
     	&& rm -rf /var/lib/apt/lists/*
 
-RUN Rscript -e "install.packages('ppcor')"
-RUN Rscript -e "install.packages('moments')"
-RUN Rscript -e "install.packages('RCurl')"
-RUN Rscript -e "install.packages('matrixStats')"
+RUN Rscript -e "install.packages(c('ppcor', 'moments', 'matrixStats'))"
 
 # Copy the current directory contents into the container
 COPY . /computation
