@@ -11,28 +11,17 @@ WORKDIR /computation
 # Install any needed packages specified in requirements.txt
 # RUN pip install -r requirements.txt
 
-#apt-get install software-properties-common
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
-#add-apt-repository ppa:marutter/rdev
-
+# https://github.com/rocker-org/rocker/blob/b9f9289ef27f07dc2f2b64d56d12646770b9b233/r-base/Dockerfile
 RUN apt-get update \ 
 	&& apt-get install -y --no-install-recommends \
 		ed \
-		less \
-		locales \
-		vim-tiny \
+	#	less \
+	#	locales \
+	#	vim-tiny \
 		wget \
 		ca-certificates \
-		fonts-texgyre \
+	#	fonts-texgyre \
 	&& rm -rf /var/lib/apt/lists/*
-
-## Configure default locale, see https://github.com/rocker-org/rocker/issues/19
-#RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-#	&& locale-gen en_US.utf8 \
-#	&& /usr/sbin/update-locale LANG=en_US.UTF-8
-
-#ENV LC_ALL en_US.UTF-8
-#ENV LANG en_US.UTF-8
 
 ## Use Debian unstable via pinning -- new style via APT::Default-Release
 RUN echo "deb http://http.debian.net/debian sid main" > /etc/apt/sources.list.d/debian-unstable.list \
@@ -40,29 +29,14 @@ RUN echo "deb http://http.debian.net/debian sid main" > /etc/apt/sources.list.d/
 
 ENV R_BASE_VERSION 3.5.1
 
-## Now install R and littler, and create a link for littler in /usr/local/bin
-## Also set a default CRAN repo, and make sure littler knows about it too
-## Also install stringr to make dococt install (from source) easier
 RUN apt-get update \
 	&& apt-get install -t unstable -y --no-install-recommends \
-		littler \
-                r-cran-littler \
-                r-cran-stringr \
 		r-base=${R_BASE_VERSION}-* \
 		r-base-dev=${R_BASE_VERSION}-* \
-		r-recommended=${R_BASE_VERSION}-* \
         && echo 'options(repos = c(CRAN = "https://cloud.r-project.org/"))' >> /etc/R/Rprofile.site \
- #       && echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r \
-#	&& ln -s /usr/lib/R/site-library/littler/examples/install.r /usr/local/bin/install.r \
-#	&& ln -s /usr/lib/R/site-library/littler/examples/install2.r /usr/local/bin/install2.r \
-#	&& ln -s /usr/lib/R/site-library/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
-#	&& ln -s /usr/lib/R/site-library/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
-#	&& install.r docopt \
-	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
-	&& rm -rf /var/lib/apt/lists/*
+    	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
+    	&& rm -rf /var/lib/apt/lists/*
 
-#CMD ["R"]
-RUN echo "r <- getOption('repos'); r['CRAN'] <- 'http://cran.us.r-project.org'; options(repos = r);" > ~/.Rprofile
 RUN Rscript -e "install.packages('ppcor')"
 RUN Rscript -e "install.packages('moments')"
 RUN Rscript -e "install.packages('RCurl')"
