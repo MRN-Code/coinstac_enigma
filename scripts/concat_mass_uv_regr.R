@@ -80,7 +80,6 @@ ROI<-eval(parse(text=paste('c(',ROI_LIST,')',sep='')))
 Config_Path=cmdargs[6]   #docs.google 
 DATA_DIR=cmdargs[7]   #docs.google 
 
-
 config_csv<-read_web_csv(Config_Path)
 
 config_currentRun<-config_csv[grep(ID, config_csv$ID, ignore.case=T),]
