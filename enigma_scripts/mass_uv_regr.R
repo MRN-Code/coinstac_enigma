@@ -803,9 +803,9 @@ for (cur_sm in METRICS){    #for each metric
     #cat(paste("error_occ:",as.character(error_occured),sep=''))
     if(error_occured==0) {   
        #-- /7.2.1 END OF Applying LM to each ROI
-	    write.csv(resMatr,file=paste(Results_CSV_Path,cur_sm,'_',dsAnalysisConf$ID[cur_rowAnalysis],"_",SitePostfix,".csv",sep=''),row.names=FALSE)
+	    write.csv(resMatr,file=paste(Results_CSV_Path,cur_sm,'_',dsAnalysisConf$ID[cur_rowAnalysis],".csv",sep=''),row.names=FALSE)
 	    if (dsAnalysisConf$SaveLM[cur_rowAnalysis]==1){
-	    	save(lmList,file=paste(Results_CSV_Path,cur_sm,'_LM_',dsAnalysisConf$ID[cur_rowAnalysis],"_",SitePostfix,'.Rdata',sep=''))
+	    	save(lmList,file=paste(Results_CSV_Path,cur_sm,'_LM_',dsAnalysisConf$ID[cur_rowAnalysis],'.Rdata',sep=''))
 	    }
 	}
     #cat(paste("End of processing model: ",dsAnalysisConf$ID[cur_rowAnalysis],":",dsAnalysisConf$Name[cur_rowAnalysis],'\n',sep=''))

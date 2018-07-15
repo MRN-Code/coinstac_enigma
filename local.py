@@ -9,7 +9,7 @@ from utils import listRecursive
 def local_1(args):
     input_list = args["input"]
 
-    scriptDir = "/computation/scripts"
+    scriptDir = "/computation/enigma_scripts"
     resDir = os.path.join(args["state"]["outputDirectory"], 'results')
     logDir = os.path.join(args["state"]["outputDirectory"], 'logs')
 
@@ -38,12 +38,11 @@ def local_1(args):
     for file in agg_file_list:
         file_name = os.path.split(file)[-1]
         file_name = os.path.splitext(file_name)[0]
-        file_name_excl_site = '_'.join(file_name.split('_')[0:-1])
 
         with open(file, 'r') as f:
             lines = f.readlines()
 
-        output_contents[file_name_excl_site] = lines
+        output_contents[file_name] = lines
 
     output_dict = {
         "output_contents": output_contents,

@@ -113,7 +113,7 @@ for(trait in METRICS){
     {
       
       for (cur_roi in ROI) {
-        f_name=paste(ID,'_',cur_roi,'_',trait,'_',dsAnalysisConf$ID[cur_rowAnalysis],'_',SitePostfix,'.csv',sep='')
+        f_name=paste(ID,'_',cur_roi,'_',trait,'_',dsAnalysisConf$ID[cur_rowAnalysis],'.csv',sep='')
 	if (!(file.exists(f_name))) {
 		cat(paste("File ",f_name," for METRICS: ", trait, " Linear model: ", dsAnalysisConf$ID[cur_rowAnalysis], " ROI: ", cur_roi, " does not exist. Skipping the whole model.\n"))
 		curModelInvalid<<-TRUE
@@ -129,7 +129,7 @@ for(trait in METRICS){
         }
         i=i+1
       }
-      if(!curModelInvalid) write.csv(data_csv,file=paste(ID,'_ALL_',trait,'_',dsAnalysisConf$ID[cur_rowAnalysis],'_',SitePostfix,'.csv',sep=''))
+      if(!curModelInvalid) write.csv(data_csv,file=paste(ID,'_ALL_',trait,'_',dsAnalysisConf$ID[cur_rowAnalysis],'.csv',sep=''))
     }
   }
 }
