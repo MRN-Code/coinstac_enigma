@@ -40,11 +40,11 @@ def local_1(args):
         file_name = os.path.splitext(file_name)[0]
         file_name_excl_site = '_'.join(file_name.split('_')[0:-1])
 
-        with open(agg_file_list[0]) as f:
+        with open(file, 'r') as f:
             lines = f.readlines()
 
         output_contents[file_name_excl_site] = lines
-        
+
     output_dict = {
         "output_contents": output_contents,
         "computation_phase": "local_1"
