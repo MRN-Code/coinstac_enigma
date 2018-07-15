@@ -31,6 +31,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Installing required packages for R
+# https://github.com/glamp/r-docker/blob/master/Dockerfile
 RUN Rscript -e "install.packages(c('ppcor', 'moments', 'matrixStats'))"
 
 # Copy the current directory contents into the container
