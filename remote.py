@@ -25,13 +25,28 @@ def remote_1(args):
                 for line in input_list[site]["output_contents"][file][1:]:
                     f.writelines(['"' + site + '",', line])
 
+#    for file in file_names:
+#        a = list()
+#        for site in site_ids:
+#            df = pd.DataFrame(input_list[site]["output_contents"][file])
+#            df = df[0].apply(lambda x: pd.Series(x.split(',')))
+#            df.columns = df.iloc[0]
+#            df.columns = df.columns.str.replace('"', '').str.replace('\n','')
+#            df.drop(df.index[0], inplace=True)
+#            a.append(df)
+#
+#        df = pd.concat(a, ignore_index=True)
+#
+#        file_name = os.path.join(args["state"]["outputDirectory"],
+#                                 file + '.csv')
+#        df.to_csv(file_name, index=False)
+
     computation_output = {
         "output": "Results files sent to remote",
         "success": True
     }
 
     return json.dumps(computation_output)
-
 
 if __name__ == '__main__':
 
