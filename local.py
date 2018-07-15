@@ -8,9 +8,11 @@ from utils import listRecursive
 def local_1(args):
     input_list = args["input"]
 
-    scriptDir = "/computation/enigma_scripts"
-    resDir = args["state"]["outputDirectory"]
-    logDir = os.path.join(args["state"]["outputDirectory"], 'logs')
+    scriptDir = "/computation/scripts"
+    resDir = os.path.join(args["state"]["cacheDirectory"], 'results')
+    logDir = os.path.join(args["state"]["cacheDirectory"], 'logs')
+
+    finalResDir = args["state"]["outputDirectory"]
 
     data_dir = args["state"]["baseDirectory"]
     subjects_cov = os.path.join(args["state"]["baseDirectory"],
@@ -22,17 +24,16 @@ def local_1(args):
         os.path.join(scriptDir, "mass_uv_regr_csv.sh"), scriptDir, resDir,
         logDir, data_dir, config_path, subjects_cov
     ]
-    subprocess.call(regr_args)    
+    subprocess.call(regr_args)
 
     concat_args = [
-        "bash", 
-        os.path.join(scriptDir, "concat_mass_uv_regr_csv.sh"), scriptDir, resDir,
-        logDir, data_dir, config_path
+        "bash",
+        os.path.join(scriptDir, "concat_mass_uv_regr_csv.sh"), scriptDir,
+        finalResDir, logDir, data_dir, config_path
     ]
-
     subprocess.call(concat_args)
-    
-    # code to read ALL files and 
+
+    # code to read ALL files and
 
     output_dict = {"config_path": config_path, "computation_phase": "local_1"}
 
