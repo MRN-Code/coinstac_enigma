@@ -97,7 +97,7 @@ then
 	roi_text=$(printf "\",\"%s" ${ROI_LIST[@]})
 	roi_text=${roi_text:2}"\""
 
-#	echo $roi_text >> $scriptDir/roi_list.txt
+echo $roi_text >> $resDir/roi_list.txt
 fi
 NchunksPerTask=$((Nroi/Nnodes))
 start_pt=$(($((${SGE_TASK_ID}-1))*${NchunksPerTask}+1))
