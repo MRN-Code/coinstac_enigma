@@ -8,14 +8,20 @@ def remote_1(args):
     input_list = args["input"]
     site_ids = list(input_list.keys())
 
+    # Getting all the file names
     file_names = list(input_list[site_ids[0]]["output_contents"].keys())
+    
+    # Getting the header from each file
     file_headers = [
         input_list[site_ids[0]]["output_contents"][key][0]
         for key in file_names
     ]
 
+    # Associating file names with their headers as a dictionary
     file_headers = dict(zip(file_names, file_headers))
 
+    # Creating files and concatenating contents from different local sites and
+    # putting then in the file
     for file in file_names:
         with open(
                 os.path.join(args["state"]["outputDirectory"], file + '.csv'),

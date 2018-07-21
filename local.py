@@ -9,6 +9,7 @@ from utils import listRecursive
 def local_1(args):
     input_list = args["input"]
 
+    # Setting environment for the script to work seamlessly
     scriptDir = "/computation/enigma_scripts"
     resDir = os.path.join(args["state"]["outputDirectory"], 'results')
     logDir = os.path.join(args["state"]["outputDirectory"], 'logs')
@@ -18,6 +19,7 @@ def local_1(args):
                                 'covariates.csv')
     config_path = os.path.join(scriptDir, input_list["CONFIG_PATH"])
 
+    # Running the first script
     regr_args = [
         "bash",
         os.path.join(scriptDir, "mass_uv_regr_csv.sh"), scriptDir, resDir,
@@ -25,6 +27,7 @@ def local_1(args):
     ]
     subprocess.call(regr_args)
 
+    # Running the second script
     concat_args = [
         "bash",
         os.path.join(scriptDir, "concat_mass_uv_regr_csv.sh"), scriptDir,
@@ -32,8 +35,13 @@ def local_1(args):
     ]
     subprocess.call(concat_args)
 
+    # Gather the list of ALL csv files
     agg_file_list = glob.glob(os.path.join(resDir, '*ALL*.csv'))
 
+    # Sending contents of the ALL files as dictionary with the file name being
+    # key and contents the value
+    #TODO: Can also read the files as dataframes which makes it easy to work on 
+    # later
     output_contents = dict()
     for file in agg_file_list:
         file_name = os.path.split(file)[-1]
