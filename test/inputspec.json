@@ -1,2 +1,59 @@
-[{"CONFIG_PATH": {"value": "test_config.csv"}},
-{"CONFIG_PATH": {"value": "test_config.csv"}}]
+[{
+  "covariates": {
+    "value": "covariates.csv"
+  },
+  "dependents": {
+    "value": [
+      "FA",
+      "MD"
+    ]
+  },
+  "ROI": {
+    "value": [
+      "GCC",
+      "BCC"
+    ]
+  },
+  "models": {
+    "value": [
+      "C(Dx) + Age + C(Sex)",
+      "AO + Age + C(Sex) + center(Age) ** 2 + center(Age ** 2) * C(Sex) + center(Age) * C(Sex)"
+    ]
+  },
+  "filters": {
+    "value": [
+      "",
+      "Dx == 1 & AO == AO"
+    ]
+  }
+},
+
+{
+  "covariates": {
+    "value": "covariates.csv"
+  },
+  "dependents": {
+    "value": [
+      "FA",
+      "MD"
+    ]
+  },
+  "ROI": {
+    "value": [
+      "GCC",
+      "BCC"
+    ]
+  },
+  "models": {
+    "value": [
+      "C(Dx) + Age + C(Sex)",
+      "AO + Age + C(Sex) + center(Age) ** 2 + center(Age ** 2) * C(Sex) + center(Age) * C(Sex)"
+    ]
+  },
+  "filters": {
+    "value": [
+      "",
+      "Dx == 1 & AO == AO"
+    ]
+  }
+}]
