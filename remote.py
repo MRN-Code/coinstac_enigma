@@ -54,16 +54,7 @@
 #
 #    return json.dumps(computation_output)
 #
-#if __name__ == '__main__':
-#
-#    parsed_args = json.loads(sys.stdin.read())
-#    phase_key = list(listRecursive(parsed_args, 'computation_phase'))
-#
-#    if 'local_1' in phase_key:
-#        computation_output = remote_1(parsed_args)
-#        sys.stdout.write(computation_output)
-#    else:
-#        raise ValueError("Error occurred at Remote")
+
 
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -78,6 +69,7 @@ import scipy as sp
 import ujson as json
 from itertools import repeat
 from remote_ancillary import get_stats_to_dict
+from utils import listRecursive
 
 
 def remote_1(args):
@@ -261,7 +253,7 @@ def remote_2(args):
 if __name__ == '__main__':
 
     parsed_args = json.loads(sys.stdin.read())
-    phase_key = list(reg.list_recursive(parsed_args, 'computation_phase'))
+    phase_key = list(listRecursive(parsed_args, 'computation_phase'))
 
     if "local_1" in phase_key:
         computation_output = remote_1(parsed_args)

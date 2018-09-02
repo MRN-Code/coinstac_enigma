@@ -1,10 +1,8 @@
 #import glob
-#import json
 import os
 import pandas as pd
-#import subprocess
 import sys
-#from utils import listRecursive
+from utils import listRecursive
 from patsy import dmatrix
 import regression as reg
 #import sys
@@ -197,7 +195,7 @@ def local_2(args):
 if __name__ == '__main__':
 
     parsed_args = json.loads(sys.stdin.read())
-    phase_key = list(reg.list_recursive(parsed_args, 'computation_phase'))
+    phase_key = list(listRecursive(parsed_args, 'computation_phase'))
 
     if not phase_key:
         computation_output = local_1(parsed_args)
@@ -207,15 +205,3 @@ if __name__ == '__main__':
         sys.stdout.write(computation_output)
     else:
         raise ValueError("Error occurred at Local")
-
-
-#if __name__ == '__main__':
-#
-#    parsed_args = json.loads(sys.stdin.read())
-#    phase_key = list(listRecursive(parsed_args, 'computation_phase'))
-#
-#    if not phase_key:
-#        computation_output = local_1(parsed_args)
-#        sys.stdout.write(computation_output)
-#    else:
-#        raise ValueError("Error occurred at Local")
