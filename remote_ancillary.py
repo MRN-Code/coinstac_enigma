@@ -6,11 +6,12 @@ Created on Sat Apr 14 14:56:41 2018
 @author: Harshvardhan
 """
 
-import nibabel as nib
-from nilearn import plotting
-import numpy as np
 import os
+
+import nibabel as nib
+import numpy as np
 import pandas as pd
+from nilearn import plotting
 
 
 def get_stats_to_dict(a, *b):
@@ -34,11 +35,11 @@ def print_beta_images(args, avg_beta_vector):
 
         clipped_img = nib.Nifti1Image(new_data, mask.affine, mask.header)
 
-        plotting.plot_stat_map(
-            clipped_img,
-            output_file=os.path.join(images_folder, 'beta_' + str(column)),
-            display_mode='ortho',
-            colorbar=True)
+        plotting.plot_stat_map(clipped_img,
+                               output_file=os.path.join(
+                                   images_folder, 'beta_' + str(column)),
+                               display_mode='ortho',
+                               colorbar=True)
 
 
 def print_pvals(args, ps_global, ts_global):
@@ -53,23 +54,20 @@ def print_pvals(args, ps_global, ts_global):
 
     for column in p_df.columns:
         new_data = np.zeros(mask.shape)
-        new_data[mask.get_data() >
-                 0] = -1 * np.log10(p_df[column]) * np.sign(t_df[column])
+        new_data[mask.get_data() > 0] = -1 * np.log10(p_df[column]) * np.sign(
+            t_df[column])
 
         clipped_img = nib.Nifti1Image(new_data, mask.affine, mask.header)
 
-#        thresholdh = max(np.abs(p_df[column]))
+        #        thresholdh = max(np.abs(p_df[column]))
 
-        plotting.plot_stat_map(
-            clipped_img,
-            output_file=os.path.join(images_folder, 'pval_' + str(column)),
-            display_mode='ortho',
-            colorbar=True)
+        plotting.plot_stat_map(clipped_img,
+                               output_file=os.path.join(
+                                   images_folder, 'pval_' + str(column)),
+                               display_mode='ortho',
+                               colorbar=True)
 
         if 'display' in locals():
-            plotting.plot_stat_map(
-                clipped_img,
-                cut_coords=display.cut_coords)
+            plotting.plot_stat_map(clipped_img, cut_coords=display.cut_coords)
         else:
-            display = plotting.plot_stat_map(
-                clipped_img)
+            display = plotting.plot_stat_map(clipped_img)

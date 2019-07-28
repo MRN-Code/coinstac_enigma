@@ -1,12 +1,17 @@
-import numpy as np
 import os
-import pandas as pd
-import regression as reg
 import sys
+import warnings
+
+import numpy as np
+import pandas as pd
 import ujson as json
-from utils import listRecursive
 from patsy import dmatrix
-from local_ancillary import local_stats_to_dict_fsl, ignore_nans
+
+import regression as reg
+from local_ancillary import ignore_nans, local_stats_to_dict_fsl
+from utils import listRecursive
+
+warnings.simplefilter("ignore")
 
 
 def local_1(args):
@@ -29,17 +34,17 @@ def local_1(args):
 
                 y_main = pd.read_csv(y_file)
                 y = y_main[curr_roi]
-    
+
                 Xy = pd.concat([X_main, y], axis=1)
-    
+
                 try:
                     Xy.query(curr_filter, inplace=True)
                 except ValueError:
                     pass
-    
+
                 X = Xy.loc[:, Xy.columns != curr_roi]
                 y = Xy.loc[:, Xy.columns == curr_roi]
-    
+
                 X = dmatrix(curr_model, data=X, return_type='dataframe')
 
                 t = local_stats_to_dict_fsl(X, y)
